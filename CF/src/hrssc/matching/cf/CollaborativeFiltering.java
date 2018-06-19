@@ -1,9 +1,8 @@
-package machinelearning.cf;
+package hrssc.matching.cf;
 
 import javafx.scene.transform.MatrixType;
-import machinelearning.model.Item;
-import machinelearning.model.Position;
-import machinelearning.model.Skill;
+import hrssc.matching.model.Item;
+import hrssc.matching.model.Skill;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +27,7 @@ public class CollaborativeFiltering implements Similar{
         for(Skill skillA: itemA.getSkills()){
             for(Skill skillB: itemB.getSkills()){
                 if(skillA.getTitle().equals(skillB.getTitle())){
-                    similarSkills.put(skillA,skillB);
+                        similarSkills.put(skillA, skillB);
                 }
             }
         }
@@ -55,7 +54,7 @@ public class CollaborativeFiltering implements Similar{
             pSum += skillA.getExperience()*skillB.getExperience();
         }
         num = pSum - (sum1*sum2)/n;
-        den = Math.sqrt( ((sqSum1 - Math.pow(sum1,2))/n)  * ((sqSum2 - Math.pow(sum2,2))/n)  );
+        den = Math.sqrt((sqSum1 - Math.pow(sum1,2)/n) * (sqSum2 - Math.pow(sum2,2)/n));
         return num/den;
     }
 }

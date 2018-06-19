@@ -1,7 +1,7 @@
-package machinelearning.cf;
+package hrssc.matching.cf;
 
 import javafx.scene.transform.MatrixType;
-import machinelearning.model.Item;
+import hrssc.matching.model.Item;
 
 import java.util.List;
 

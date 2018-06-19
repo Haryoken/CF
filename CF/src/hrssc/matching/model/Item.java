@@ -1,4 +1,4 @@
-package machinelearning.model;
+package hrssc.matching.model;
 
 import java.util.List;
 
@@ -6,10 +6,12 @@ public class Item {
 
     private int id;
     private List<Skill> skills;
-    private List<String> positions;
+    private List<Position> positions;
+    private List<String> domains;
     private String location;
     private double rating;
-    private String type;
+    private String itemType;
+    private List<String> type;
 
     public int getId() {
         return id;
@@ -27,11 +29,11 @@ public class Item {
         this.skills = skills;
     }
 
-    public List<String> getPositions() {
+    public List<Position> getPositions() {
         return positions;
     }
 
-    public void setPositions(List<String> positions) {
+    public void setPositions(List<Position> positions) {
         this.positions = positions;
     }
 
@@ -43,11 +45,11 @@ public class Item {
         this.rating = rating;
     }
 
-    public String getType() {
+    public List<String> getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(List<String> type) {
         this.type = type;
     }
 
@@ -59,12 +61,32 @@ public class Item {
         this.location = location;
     }
 
-    public Item(int id, List<Skill> skills, List<String> positions, double rating, String type, String location) {
+    public List<String> getDomains() {
+        return domains;
+    }
+
+    public void setDomains(List<String> domains) {
+        this.domains = domains;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
+    }
+
+    public Item(int id, List<Skill> skills, List<Position> positions, List<String> domains, String location, double rating, String itemType, List<String> type) {
         this.id = id;
         this.skills = skills;
         this.positions = positions;
-        this.rating = rating;
-        this.type = type;
+        this.domains = domains;
         this.location = location;
+        this.rating = rating;
+        this.itemType = itemType;
+        this.type = type;
     }
+
+    public Item(){}
 }

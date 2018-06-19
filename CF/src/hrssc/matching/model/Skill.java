@@ -1,8 +1,8 @@
-package machinelearning.model;
+package hrssc.matching.model;
 
 public class Skill {
     private String title;
-    private int experience; // From 0 -> 5
+    private double experience; // From 0 -> 5
 
     public String getTitle() {
         return title;
@@ -12,15 +12,15 @@ public class Skill {
         this.title = title;
     }
 
-    public int getExperience() {
+    public double getExperience() {
         return experience;
     }
 
-    public void setExperience(int experience) {
+    public void setExperience(double experience) {
         this.experience = experience;
     }
 
-    public Skill(String title, int experience) {
+    public Skill(String title, double experience) {
         this.title = title;
         this.experience = experience;
     }
