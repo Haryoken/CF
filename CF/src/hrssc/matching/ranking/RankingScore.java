@@ -5,26 +5,79 @@ import hrssc.matching.model.*;
 import java.util.*;
 
 public class RankingScore {
-    private double basicSimilarity;
+    private double baseSkillScore;
+    private double baseDomainScore;
+    private double baseTypeScore;
+    private double similarityMultipler;
+    private double ratingMultipler;
 
-    public RankingScore(double basicSimilarity) {
-        this.basicSimilarity = basicSimilarity;
+    public double getSimilarityMultipler() {
+        return similarityMultipler;
+    }
+
+    public void setSimilarityMultipler(double similarityMultipler) {
+        this.similarityMultipler = similarityMultipler;
+    }
+
+    public double getRatingMultipler() {
+        return ratingMultipler;
+    }
+
+    public void setRatingMultipler(double ratingMultipler) {
+        this.ratingMultipler = ratingMultipler;
     }
 
 
 
-
-    public double getBasicSimilarity() {
-        return basicSimilarity;
+    public double getBaseDomainScore() {
+        return baseDomainScore;
     }
 
-    public void setBasicSimilarity(double basicSimilarity) {
-        this.basicSimilarity = basicSimilarity;
+    public void setBaseDomainScore(double baseDomainScore) {
+        this.baseDomainScore = baseDomainScore;
     }
 
+    public double getBaseTypeScore() {
+        return baseTypeScore;
+    }
 
+    public void setBaseTypeScore(double baseTypeScore) {
+        this.baseTypeScore = baseTypeScore;
+    }
 
-    public double rankingResourceByProject(Project project, Resource resource){
+    public double getBaseSkillScore() {
+        return baseSkillScore;
+    }
+
+    public void setBaseSkillScore(double baseSkillScore) {
+        this.baseSkillScore = baseSkillScore;
+    }
+
+    public RankingScore(double baseSkillScore, double baseDomainScore, double baseTypeScore, double similarityMultipler, double ratingMultipler) {
+        this.baseSkillScore = baseSkillScore;
+        this.baseDomainScore = baseDomainScore;
+        this.baseTypeScore = baseTypeScore;
+        this.similarityMultipler = similarityMultipler;
+        this.ratingMultipler = ratingMultipler;
+    }
+    public RankingScore(){}
+    private double calculateDomainScore(Project project, Resource resource){
+        for(String domain: resource.getDomains()){
+            if(domain.equals(project.getDomains())){
+                return this.getBaseDomainScore();
+            }
+        }
+        return 0;
+    }
+    private double calculateTypeScore(Project project, Resource resource){
+        for(String type: resource.getProjectType()){
+            if(type.equals(project.getProjectType())){
+                return this.getBaseTypeScore();
+            }
+        }
+        return 0;
+    }
+    private double calculateSkillScore(Project project, Resource resource){
         double multipler = 1;
         //Find similar skills
         Map<Skill, Skill> similarSkills = new HashMap<>();
@@ -46,12 +99,19 @@ public class RankingScore {
             multipler *= temp;
         }
 
-
-        return this.getBasicSimilarity() * multipler + resource.getRating();
+        return this.getBaseSkillScore() * multipler;
     }
 
-    public double rankingProjectByResource(Resource resource, List<Project> projectList){
-        return 0.0;
+    private double calculateSimilarityScore(Project project, Resource resource){
+       double skill = calculateSkillScore(project,resource);
+       double type = calculateTypeScore(project,resource);
+       double domain = calculateDomainScore(project,resource);
+       return skill + type + domain;
+    }
+    public double rankingScore(Project project, Resource resource){
+        double similarity = calculateSimilarityScore(project,resource);
+        double rating = resource.getRating();
+        return similarity * similarityMultipler + rating * ratingMultipler;
     }
     public List<Resource> randomResource(int amount) {
 
