@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CF:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CF_jar</output-path>
+    <root id="archive" name="CF.jar">
+      <element id="module-output" name="CF" />
+    </root>
+  </artifact>
+</component>

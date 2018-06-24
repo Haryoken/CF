@@ -96,7 +96,17 @@ public class RankingScore {
             Skill requirementSkill = (Skill) similarEntry.getKey();
             Skill resourceSkill = (Skill) similarEntry.getValue();
             double temp = resourceSkill.getExperience() / requirementSkill.getExperience();
-            multipler *= temp;
+
+            if(temp == 1){
+                multipler *=2.5;
+            }
+            if(temp > 1 && temp <= 1.5){
+                multipler *= 1.5;
+            }
+            if(temp < 1){
+                multipler *= temp;
+            }
+
         }
 
         return this.getBaseSkillScore() * multipler;
@@ -111,6 +121,9 @@ public class RankingScore {
     public double rankingScore(Project project, Resource resource){
         double similarity = calculateSimilarityScore(project,resource);
         double rating = resource.getRating();
+        if(similarity == 0){
+            return 0;
+        }
         return similarity * similarityMultipler + rating * ratingMultipler;
     }
     public List<Resource> randomResource(int amount) {

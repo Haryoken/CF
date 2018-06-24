@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
        RankingScore rk = new RankingScore();
        List<Project> projectList = rk.randomProject(1);
-       List<Resource> resourceList = rk.randomResource(10);
+       List<Resource> resourceList = rk.randomResource(20);
        Project project = projectList.get(0);
 
 
